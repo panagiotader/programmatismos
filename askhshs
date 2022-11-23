@@ -24,3 +24,686 @@ int main()
     delete char_ptr;
     return 0;
 }
+
+2. Γράψτε μια συνάρτηση με όνομα circle που να δέχεται μια παράμετρο που
+να αντιστοιχεί στην ακτίνα ενός κύκλου και να επιστρέφει το εμβαδόν του
+κύκλου και την περίμετρο του κύκλου.
+A = πr2(1)
+P = 2πr (2)
+
+#include <iostream>
+using namespace std;
+
+#define PI=3.1415;
+
+void circle(double radius,double &area,double &perimeter)
+{
+    area=PI*radius*radius;
+    perimeter=2*PI*radius;
+}
+
+int main()
+{
+    double radius,area,perimeter;
+    cout<<"Give circle radius:";
+    cin>>radius;
+    circle(radius,area,perimeter);
+    cout<<"Circle area:"<<area<<endl;
+    cout<<"Circle perimeter:"<<perimeter<<endl;
+    return 0;
+}
+
+3. Γράψτε πρόγραμμα που να δημιουργεί έναν πίνακα 5 θέσεων με τις τιμές
+2,7,1,3,6. Να δέχεται από τον χρήστη μια ακέραια τιμή x και να αντιγράφει
+τον πίνακα x φορές σε έναν δυναμικό πίνακα τον οποίο στην συνέχεια να
+εμφανίζει στην οθόνη. Να αποδεσμεύει τον πίνακα πριν τον τερματισμό του
+προγράμματος
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int array[]{2,7,1,3,6};
+    int x;
+    cout<<"Number of copies:";
+    cin>>x;
+    const int size=(sizeof(array)/sizeof(array[0]));
+    const int new_size=size*x;
+    int *darray=new int[new_size];
+    for(int i=0;i<x;i++)
+        for(int j=0;j<sizeof(table)/sizeof(table[0]);j++)
+        {
+            dynamic_table[i*size+j]=table[i];
+        }
+    // for(int i=0;i<new_size;i++)
+    // {
+    //     darray[i]=table[i%size];
+    // }
+    for(int i=0;i<(sizeof(array)/sizeof(array[0]))*x;i++)
+    {
+        cout<<"darray["<<i<<"]:"<<darray[i]<<endl;
+    }
+    delete[] darray;
+}
+
+4. Δημιουργήστε μία κλαση Car που θα περιέχει 4 ιδιωτικά μέλη δεδομένα:
+• CarModel:string
+• CarName:string
+• CarPrice:double
+• CarOwner:string
+Στην κλάση δημιουργήστε getters και setters για όλα τα μέλη δεδομένα και
+μία συνάρτηση display που θα εμφανίζει όλα τα μέλη δεδομένα.
+Extra ερώτημα:Στην κύρια συνάρτηση δημιουργήστε ένα πίνακα με 10 αντικείμενα και ταξινομίστε τα με βάση την τιμή. Στην συνέχεια εμφανίστε
+όλα τα αντικείμενα στην οθόνη.
+
+#include <iostream>
+using namespace std;
+
+class Car
+{
+    private:
+        string CarModel;
+        string CarName;
+        double CarPrice;
+        string CarOwner;
+    public:
+        Car(string car_model,string car_name,double car_price,string car_owner):CarModel(car_model),CarName(car_name),CarPrice(car_price),CarOwner(car_owner) {}
+        ~Car() {}
+
+        void setCarModel(string car_model) {this->CarModel=car_model;}
+        void setCarName(string car_name) {this->CarName;}
+        void setCarPrice(double car_price) {this->CarPrice=car_price;}
+        void setCarOwner(string car_owner) {this->CarOwner;}
+
+        string getCarModel()const {return this->CarModel;}
+        string getCarName()const {return this->CarName;}
+        double getCarPrice()const {return this->CarPrice;}
+        string getCarOwner()const {return this->CarOwner;}
+
+        void display()
+        {
+            cout<<this->CarModel<<"\t"<<this->CarName<<"\t"<<this->CarPrice<<"\t"<<this->CarOwner<<endl;
+        }
+};
+
+void sort_table(Car *cars,int size)
+{
+    for(int i=0;i<size;i++)
+    {
+        for(int j=i+1l;j<size-1;j++)
+        {
+            if(cars[i].getCarPrice()>cars[j].getCarPrice()) {
+                Car temp=cars[i];
+                cars[i]=cars[j];
+                cars[j]=temp;
+            }
+        }
+    }
+}
+
+int main()
+{
+    Car c1{"Toyota","Auris",10000,"Angelos"};
+    c1.display();
+} 
+
+5. Δημιουργήστε κλάση Student η οποία θα έχει τα εξής μέλη δεδομένα:
+• name:string
+• semester:int
+• number of grades:int
+• grades:pointer to double
+H κλάση θα έχει τις ακόλουθες συναρτήσεις μέλη:
+• Constructor χωρίς ορίσματα που θα αρχικοποιεί τα μέλη δεδομένα με
+τις ακόλουθες τιμές (”noname”,-1,0,nullptr)
+• Constructor με 3 ορίσματα(string,int,int) που θα αρχικοποιεί τα μέλη
+δεδομένα. Το τρίτο όρισμα θα αντιστοιχεί στον αριθμό τον βαθμολογιών
+που μπορούν να προσθεθούν για ένα φοιτητή.
+• getters και setters για όλα τα μέλη δεδομένα
+• Συνάρτηση μέλος add grade που θα προσθέτει στον πίνακα grades μία
+βαθμολογία. Σε περίπτωση που δεν μπορεί να προσθεθεί άλλος βαθμός
+να εμφανίζεται κατάλληλο μήνυμα.
+• Συνάρτηση average που θα υπολογίζει τον μέσο όρο ενός φοιτητή.
+Στην κύρια συνάρτηση:
+• Nα δημιουργηθούν 10 φοιτητές.
+• Να βρεθεί ο φοιτητής με τον μέγιστο μέσο όρο και ο φοιτητής με τον
+μικρότερο μέσο όρο.
+#include <iostream>
+#include <string>
+#include <chrono>
+#include <random>
+using namespace std;
+
+class Student
+{
+    private:
+        string name;
+        int semester;
+        int number_of_grades;
+        int grade_index;
+        double *grades;
+    public:
+        Student():name(""),semester(-1),number_of_grades(0),grade_index(0),grades(nullptr) {}
+        Student(string name,int semester,int num_of_grades):name(name),semester(semester),number_of_grades(num_of_grades),grade_index(0),grades(new double[num_of_grades]) {}
+        ~Student() {delete[] this->grades;}
+
+        void set_name(string student_name) {this->name=student_name;}
+        void set_semester(int student_semester) {this->semester=student_semester;}
+        void set_number_of_grades(int student_number_of_grades) {
+            this->number_of_grades=student_number_of_grades;
+            this->grades=new double[this->number_of_grades];
+        }
+
+        string get_name()const {return this->name;}
+        int get_semester()const {return this->semester;}
+        int get_total_grades()const {return this->grade_index;}
+        double get_grade(int pos){
+            if(pos>=this->grade_index)
+            {
+                cerr<<"Index Error:"<<pos<<endl;
+                return -1;
+            }
+            return this->grades[pos];
+        }
+
+        void add_grade(const double &sgrade)
+        {
+            if(this->grade_index==this->number_of_grades)
+            {
+                cerr<<"You can not insert another grade"<<endl;
+                return;
+            }
+            this->grades[this->grade_index++]=sgrade;
+        }
+
+        double average()
+        {
+            double sum=0.0;
+            for(int i=0;i<this->grade_index;i++)
+            {
+                sum+=this->grades[i];
+            }
+            return sum/this->grade_index;
+        }
+};
+
+int main()
+{
+    mt19937 mt(chrono::high_resolution_clock::now().time_since_epoch().count());
+    uniform_int_distribution <int> random_semester(1,8);
+    uniform_real_distribution <double> random_grade(0.1,10);
+
+    const int size=10;
+    const int total_grades=10;
+    Student *students=new Student[size];
+    for(int i=0;i<10;i++)
+    {
+        students[i].set_name("student_"+to_string(i+1));
+        students[i].set_semester(random_semester(mt));
+        students[i].set_number_of_grades(total_grades);
+        for(int j=0;j<total_grades;j++)
+        {
+            students[i].add_grade(random_grade(mt));
+        }
+    }
+
+    auto max_average_student=students[0];
+    auto min_average_student=students[0];
+    double max_average=students[0].average();
+    double min_average=students[0].average();
+
+    for(int i=1;i<size;i++)
+    {
+        if(students[i].average()>max_average)
+        {
+            max_average=students[i].average();
+            max_average_student=students[i];
+        }
+        else if(students[i].average()<min_average)
+        {
+            min_average=students[i].average();
+            min_average_student=students[i];
+        }
+    }
+
+    cout<<"Max Average:"<<max_average_student.get_name()<<", "<<max_average_student.get_semester()<<endl;
+    cout<<"Min Average:"<<min_average_student.get_name()<<", "<<min_average_student.get_semester()<<endl;
+    delete[] students;
+    return EXIT_SUCCESS;
+}
+
+6. Να κατασκευαστεί πρόγραμμα σε C++ που θα πραγματοποιεί τα ακόλουθα:
+• Να ορίζεται η κλάση account (λογαριασμός τράπεζας). Η κλάση account θα πρέπει να περιέχει:
+– τα ιδιωτικά πεδία name (όνομα πελάτη) και balance (υπόλοιπο λογαριασμού)
+– ΄Εναν constructor που θα αρχικοποιεί τα μέλη δεδομένα με τιμές
+(””,0.0).
+– ΄Εναν constructor που θα αρχικοποιεί τα δεδομένα με παραμέτρους.
+– getters και setters για τα πεδία name και balance.
+– Mεθόδους για deposit (κατάθεση) ενός ποσού στον λογαριασμό
+και withdraw (ανάληψη) ενός ποσού από τον λογαριασμό. Η
+μέθοδος withdraw θα πρέπει να ελέγχει έτσι ώστε να μην επιτρέπει
+την ανάληψη μεγαλύτερου ποσού από το διαθέσιμο και σε περίπτωση
+που επιχειρηθεί κάτι τέτοιο να εμφανίζει σχετικό μήνυμα.
+• Να ορίζεται η κλάση bank (τράπεζα) που να περιέχει πίνακα με 10
+λογαριασμούς. Συμπληρώστε τις κατάλληλες μεθόδους έτσι ώστε:
+– Να εμφανίζονται όλοι οι λογαριασμοί. Μέθοδος: print accounts()
+– Να πραγματοποιείται κατάθεση ενός ποσού σε έναν λογαριασμό
+δεδομένου του ονόματος του πελάτη. Μέθοδος: deposit(string,
+double)
+– Να πραγματοποιείται ανάληψη ενός ποσού από έναν λογαριασμό
+δεδομένου του ονόματος του πελάτη. Μέθοδος withdraw(string,
+double)
+– Να αποδίδεται τόκος βάσει ενός επιτοκίου και να προστίθεται στα
+υπόλοιπα όλων των λογαριασμών της τράπεζας. Μέθοδος add interest(double).
+Για παράδειγμα αν το επιτόκιο είναι 1,5% τότε η μέθοδος θα καλείται ως bank object.add interest(1.5);
+Στην κύρια συνάρτηση να δημιουργήσετε ένα αντικείμενο τύπου Bank. Εισάγεται τα στοιχεία για τους δέκα λογαριασμούς και πραγματοποιήστε προσθήκη
+300 ευρώ για ένα πελάτη καθώς και αφαίρεση ενός για ένα πελάτη της επιλογής σας.
+
+#include <iostream>
+#include <random>
+#include <chrono>
+using namespace std;
+
+class Account
+{
+    private:
+        string name;
+        double balance;
+    public:
+        Account():name("Noname"),balance(-1.0) {}
+        Account(string _name,double _balance):name(_name),balance(_balance) {}
+        ~Account() {}
+        
+        void set_name(string account_name)
+        {
+            this->name=account_name;
+        }
+        void set_balance(double account_balance)
+        {
+            this->balance=account_balance;
+        }
+        string get_name()const {return this->name;}
+        double get_balance()const {return this->balance;}
+
+        void deposit(double added_balanced)
+        {
+            this->balance+=added_balanced;
+        }
+        void withdraw(double added_balanced)
+        {
+            if(this->balance<added_balanced)
+            {
+                cerr<<"Can not withdarw that amount of money"<<endl;
+                return;
+            }
+            this->balance-=added_balanced;
+        }
+};
+
+class Bank{
+    private:
+        Account accounts[10];
+        int account_index;
+    public:
+        Bank():account_index(0) {}
+        void add_account(string account_name,double account_balance)
+        {
+            if(this->account_index==10)
+            {
+                cout<<"You can not add another account!!!\nPlease modify another account"<<endl;
+                return;
+            }
+            this->accounts[this->account_index].set_name(account_name);
+            this->accounts[this->account_index].set_balance(account_balance);
+            this->account_index++;
+        }
+        void print_accounts()
+        {
+            for(int i=0;i<10;i++)
+            {
+                cout<<this->accounts[i].get_name()<<"\t"<<this->accounts[i].get_balance()<<endl;
+            }
+        }
+
+
+        void deposit(string client_name,double client_added_balanced)
+        {
+              found=false;
+            for(int i=0;i<10;i++)
+            {
+                if(this->accounts[i].get_name()==client_name)
+                {
+                    this->accounts[i].deposit(client_added_balanced);
+                    found=true;
+                    break;
+                }
+            }
+            if(!found)
+            {
+                cerr<<"Client "<<client_name<<" does not exist on the records"<<endl;
+            }
+        }
+
+        void withdraw(string client_name,double client_removed_balance)
+        {
+            bool found=false;
+            for(int i=0;i<10;i++)
+            {
+                if(this->accounts[i].get_name()==client_name)
+                {
+                    this->accounts[i].withdraw(client_removed_balance);
+                    found=true;
+                    break;
+                }
+            }
+            if(!found)
+            {
+                cerr<<"Client "<<client_name<<" does not exist on the records"<<endl;
+            }
+        }
+};
+
+
+
+int main()
+{
+    mt19937 mt(chrono::high_resolution_clock::now().time_since_epoch().count());
+    uniform_real_distribution <double> rand_real(10000,50000);
+
+    Bank bank;
+    for(int i=0;i<10;i++)
+    {
+        bank.add_account("client_"+to_string(i+1),rand_real(mt));
+    }
+    bank.print_accounts();
+
+    bank.deposit("client_5",300);
+    bank.withdraw("client_7",200);
+    bank.print_accounts();
+    return 0;
+}
+
+7. Να κατασκευαστεί κλάση Point η οποία θα έχει ως μέλη δεδομένα:
+• x point:int
+• y point:int
+Για την κλάση να δημιουργηθούν:
+• Setters και getters για τα δύο μέλη δεδομένα καθώς και ένας κατασκευαστής
+χωρίς ορίσματα ο οποίος θα αρχικοποιεί τα δύο μέλη δεδομένα με την
+τιμή 0.
+• Μία συνάρτηση distance η οποία θα δέχεται ως όρισμα ένα αντικείμενο
+τύπου Point και θα υπολογίζει την απόσταση μεταξύ δύο σημείων. Η
+απόσταση υπολογίζεται από την εξίσωση 3. Δύο αντικείμενα Point(5,5),
+Point(1,5) θα έχουν απόσταση p
+(5 − 1)2 + (5 − 5)2 = 4.
+d (p, q) =
+vuutXn
+i=1
+(qi − pi)
+2
+(3)
+Στην κύρια συνάρτηση να πραγματοποιηθούν τα εξής:
+• Να δημιουργηθούν 30 τυχαία σημεία στο εύρος [0, 20].
+• Για κάθε σημείο να πραγματοποιηθεί εμφάνιση των συντεταγμένων
+τους.
+• Για κάθε σημείο να βρεθουν τα 5 κοντινότερα σε αυτό σημεία και να
+πραγματοποιηθεί εμφάνιση τους.
+
+#include <iostream>
+#include <cmath>
+#include <random>
+#include <chrono>
+using namespace std;
+using namespace std::chrono;
+
+class Point
+{
+    double x_point;
+    double y_point;
+    public:
+        Point():x_point(0.0),y_point(0.0) {}
+        Point(double x_val,double y_val):x_point(x_val),y_point(y_val) {}
+        ~Point() {}
+        void set_x_point(double xval) {this->x_point=xval;}
+        void set_y_point(double yval) {this->y_point=yval;} 
+
+        double get_x_point()const {return this->x_point;}
+        double get_y_point()const {return this->y_point;}
+        double distance(const Point &point)const
+        {
+            return sqrt(pow(this->x_point-point.x_point,2)+pow(this->y_point-point.y_point,2));
+        }
+};
+
+void find_k_neighbors(double *distance_matrix,int size,int kParams)
+{
+    int *indeces=new int[size];
+    double *neighbors_=new double[size];
+    
+    for(int i=0;i<size;i++)
+    {
+        indeces[i]=i;
+        neighbors_[i]=distance_matrix[i];
+    }
+    
+    for(int i=0;i<size;i++)
+    {
+        for(int j=i+1;j<size-1;j++)
+        {
+            if(neighbors_[i]>neighbors_[j])
+            {
+                double temp=neighbors_[i];
+                neighbors_[i]=neighbors_[j];
+                neighbors_[j]=temp;
+
+                int temp_i=indeces[i];
+                indeces[i]=indeces[j];
+                indeces[j]=temp_i;
+            }
+        }
+    }
+
+    for(int i=0;i<kParams;i++)
+    {
+        cout<<"Neighbor:"<<indeces[i]<<"\tDistance:"<<distance_matrix[indeces[i]]<<endl;
+    }
+    delete[] indeces;
+    delete[] neighbors_;
+}
+
+int main()
+{
+    const int K=5;
+    mt19937 mt(high_resolution_clock::now().time_since_epoch().count());
+    uniform_real_distribution <double> random_points(0,60);
+    Point *points=new Point[30];
+    double **distance_matrix=new double*[30];
+    for(int i=0;i<30;i++)
+    {
+        distance_matrix[i]=new double[30];
+    }
+
+    for(int i=0;i<30;i++)
+    {
+        points[i].set_x_point(random_points(mt));
+        points[i].set_y_point(random_points(mt));
+        distance_matrix[i][i]=INT32_MAX;
+        for(int j=0;j<30;j++)
+        {
+            if(i==j)
+            {
+                continue;
+            }
+            distance_matrix[i][j]=points[i].distance(points[j]);
+        }
+    }
+    
+    for(int i=0;i<30;i++)
+    {
+        cout<<"("<<points[i].get_x_point()<<","<<points[i].get_y_point()<<")"<<endl;
+        find_k_neighbors(distance_matrix[i],30,K);
+        cout<<endl<<endl;
+    }
+
+    for(int i=0;i<30;i++)
+    {
+        delete[] distance_matrix[i];
+    }
+    delete[] distance_matrix;
+    return EXIT_SUCCESS;
+}
+
+8. Για τη δευτεροβάθμια εξίσωση: ax2 +bx+c = 0 Γράψτε μια συνάρτηση που
+να υπολογίζει τη διακρίνουσα. Γράψτε μια συνάρτηση που να επιστρέφει
+τις ρίζες της δευτεροβάθμιας εξίσωσης καθώς και μια τιμή (1 ή 0) που να
+υποδηλώνει το εάν υπάρχουν πραγματικές ρίζες ή όχι.
+D = b
+2
+–4ac (4)
+x1,2 =
+
+
+
+−b ±
+√
+D
+2a
+, if D > 0
+0, if D = 0
+−b
+2a
+otherwise
+
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+double discriminant(double a,double b,double c)
+{
+    return pow(b,2)-4*a*c;
+}
+
+void solve(double a,double b,double c,bool &found,double &x1,double &x2)
+{
+    auto delta=discriminant(a,b,c);
+    if(delta>0)
+    {
+        found=true;
+        x1=(-b+sqrt(delta))/(2*a);
+        x2=(-b-sqrt(delta))/(2*a);
+    }
+    else if(delta==0)
+    {
+        found=true;
+        x1=x2=-b*2*a;
+    }
+    else{
+        found=false;
+        x1=INT_MIN;
+        x2=INT_MIN;
+    }
+}
+
+int main()
+{
+    double a,b,c;
+    cout<<"---- Give factors for quadratic ---"<<endl;
+    cout<<"Give a factor:";
+    cin>>a;
+    cout<<"Give b factor:";
+    cin>>b;
+    cout<<"Give c factor:";
+    cin>>c;
+
+    bool found;
+    double x1,x2;
+
+    solve(a,b,c,found,x1,x2);
+    if(found)
+    {
+        cout<<"x1:"<<x1<<endl;
+        cout<<"x2:"<<x2<<endl;
+    }
+    else
+    {
+        cout<<"x1, x2 can not be calculated"<<endl;
+    }
+    return 0;
+}
+
+9. Η ορμή(momentum) ορίζεται ως το προϊόν της μάζας ενός αντικειμένου
+και της ταχύτητας(velocity) του. Η μάζα είναι μια κλιμακωτή τιμή, ενώ
+Η ταχύτητα εκφράζεται γενικά ως πίνακας με τρεια στοιχεία. Η ορμή υπολογίζεται πολλαπλασιάζοντας την ταχύτητα επί την μαζα για κάθε στοιχείο.
+Γράψτε μια συνάρτηση με όνομα momentum και παραμέτρους:
+• ΄Ενα δείκτη σε δεκαδικές τιμές(double) και
+• την τιμή της μάζα (double)
+και επιστρέψτε ένα δείκτη σε δεκαδικές τιμές που αντιστοιχει στην ορμή.
+Γράψτε ένα πρόγραμμα για να καθορίσετε τη μέση ορμή μιας συλλογής δεδομένων με τυχαίες ταχύτητες και μάζες.
+• Κατασκευάστε μια συνάρτηση με όνομα Randvec, χωρίς παραμέτρους
+η οποία θα επιστρέψει ένα δείκτη σε δεκαδικές τιμές που θα αντιστοιχεί
+στην ταχύτητα ενός δεδομένου. Κάθε στοιχείο στον πίνακα πρέπει να
+είναι μια τυχαία παραγόμενη τιμή στο διάστημα [−100.0, 100.0].
+• Χρησιμοποιώντας το RandVec και τη λειτουργία momentum, δημιουργήστε
+1000 εγγραφές, οι οποίες θα έχουν τυχαία ταχύτητα (όπως περιγράφεται παραπάνω) και μια τυχαία παραγόμενη Μάζα στο διάστημα [1.0, 10.0].
+Αποθηκεύστε τις εγγραφές χρησιμοποιώντας κατάλληλη δομή της επιλογής σας.
+• Προσδιορίστε και εμφανίστε το μέσο ορμή των εγγραφών χρησιμοποιώντας ένα για βρόχο. [Tip: Ο μέσος όρος πρέπει να γίνει ανά στοιχείο.]
+
+#include <iostream>
+#include <chrono>
+#include <random>
+#define components 3
+#define nitems 1000
+using namespace std;
+using namespace std::chrono;
+mt19937 mt(high_resolution_clock::now().time_since_epoch().count());
+
+double* momentum(double *velocity,double mass)
+{
+    double *m=new double[nitems];
+    for(int i=0;i<components;i++)
+    {
+        m[i]=velocity[i]*mass;
+    }
+    return m;
+}
+
+double* rand_vec()
+{
+    uniform_real_distribution<double> rand_real(-100,100);
+    double *vector=new double[2];
+    for(int i=0;i<2;i++)
+    {
+        vector[i]=rand_real(mt);
+    }
+    return vector;
+}
+
+int main()
+{
+    uniform_real_distribution <double> rand_real(1.0,10);
+    double **items=new double*[nitems];
+    double **momentum_vals=new double*[nitems];
+    
+    for(int i=0;i<nitems;i++)
+    {
+        items[i]=rand_vec();
+        momentum_vals[i]=momentum(items[i],rand_real(mt));
+    }
+
+    double avg;
+    for(int j=0;j<components;j++)
+    {
+        avg=0.0;
+        for(int i=0;i<nitems;i++)
+        {
+            avg+=items[i][j];
+        }
+        cout<<"Component "<<j<<":"<<avg/nitems<<endl;
+    }
+
+    delete[] momentum_vals;
+    for(int i=0;i<nitems;i++)
+    {
+        delete[] items[i];
+    }
+    delete[] items;
+    return EXIT_SUCCESS;
+}
